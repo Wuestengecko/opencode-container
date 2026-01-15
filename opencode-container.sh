@@ -2,7 +2,7 @@
 
 readonly image=opencode:latest
 
-workdir="$(dirname "$PWD")"
+workdir="$(readlink -f "$PWD")"
 readonly workdir
 cd -P -- "$(dirname "$(readlink -f "$0")")"
 
