@@ -2,9 +2,9 @@
 
 readonly image=opencode:latest
 
-workdir="$(readlink -f "$(dirname "$0")")"
+workdir="$(dirname "$PWD")"
 readonly workdir
-cd -P -- "$(dirname "$0")"
+cd -P -- "$(dirname "$(readlink -f "$0")")"
 
 readonly sandbox_home="$PWD/sandbox_home"
 
@@ -65,6 +65,6 @@ fi
 exec podman run --rm -it --userns keep-id \
   "${volumes[@]}" \
   "${envvars[@]}" \
-  -w "${PWD}" \
+  -w "$workdir" \
   "$image" \
   "$@"
