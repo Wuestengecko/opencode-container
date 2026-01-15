@@ -62,7 +62,12 @@ if ! podman image exists "$image" 2>/dev/null; then
   msg 'Image "%s" built successfully' "$image"
 fi
 
-exec podman run --rm -it --userns keep-id \
+exec podman run --rm -it \
+  --userns keep-id \
+  --detach-keys "" \
+  --cap-drop ALL \
+  --read-only \
+  --security-opt no-new-privileges \
   "${volumes[@]}" \
   "${envvars[@]}" \
   -w "$workdir" \
